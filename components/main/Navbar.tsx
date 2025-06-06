@@ -179,7 +179,7 @@ export function Navbar({ lang, dict }: NavbarProps) {
     <Container
       ref={navRef}
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
-        isScrolled || isHovered ? "bg-primary" : "bg-transparent pt-2 sm:pt-6"
+        isScrolled || isHovered ? "bg-primary" : "bg-transparent pt-2 sm:pt-4"
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -232,7 +232,10 @@ export function Navbar({ lang, dict }: NavbarProps) {
 
               {/* Call button and language switcher on the right */}
               <div className="flex items-center gap-2 sm:gap-4">
-                <Button className="w-fit ">
+                <Button
+                  size="sm"
+                  className="bg-avangarda font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm"
+                >
                   <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="ml-1 sm:ml-2">{dict.nav.phone}</span>
                 </Button>
@@ -245,7 +248,7 @@ export function Navbar({ lang, dict }: NavbarProps) {
             <div
               className={`flex items-center justify-between ${
                 // Bigger padding for single row layout
-                isScrolled && "xl:py-2 py-3"
+                isScrolled && "xl:py-2 py-2"
               }`}
             >
               {/* Logo on the left - ONLY for single row layout (below xl) */}
@@ -258,7 +261,7 @@ export function Navbar({ lang, dict }: NavbarProps) {
                   alt="Hotel Avangarda"
                   width={110}
                   height={88}
-                  className="h-auto w-[90px] transition-opacity duration-500 sm:w-[110px]"
+                  className="h-auto w-[90px] transition-opacity duration-500 sm:w-[100px]"
                   quality={100}
                   priority
                 />
@@ -282,8 +285,8 @@ export function Navbar({ lang, dict }: NavbarProps) {
               </nav>
 
               {/* Right side buttons */}
-              <div className="flex items-center gap-2 sm:gap-4">
-                {/* Phone button - show when mobile menu is visible (below xl) */}
+              <div className="flex items-center gap-1 xl:gap-4">
+                {/* Phone button - show when mobile menu is visible (below xl) - KEEP REGULAR SIZE */}
                 <Button
                   size="sm"
                   className="xl:hidden bg-avangarda font-alata px-3 py-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm"
@@ -292,12 +295,15 @@ export function Navbar({ lang, dict }: NavbarProps) {
                   <span className="ml-1 sm:ml-2">{dict.nav.phone}</span>
                 </Button>
 
+                {/* Kup Voucher button - KEEP COMPACT */}
                 <Button
                   size="sm"
-                  className="bg-avangarda font-alata px-3 py-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm flex"
+                  className="bg-avangarda font-alata px-2 py-1 text-xs text-white hover:bg-avangarda/90 xl:px-4 xl:text-sm flex"
                 >
-                  <GiftIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                  Kup Voucher
+                  <GiftIcon className="h-3 w-3 xl:h-4 xl:w-4 mr-1" />
+                  <span className="hidden sm:inline xl:inline">
+                    Kup Voucher
+                  </span>
                 </Button>
 
                 {/* Mobile menu button */}
@@ -306,10 +312,10 @@ export function Navbar({ lang, dict }: NavbarProps) {
                     <Button
                       variant="link"
                       size="icon"
-                      className="xl:hidden text-white  p-2"
+                      className="xl:hidden text-white p-1"
                       asChild
                     >
-                      <Menu className="h-6 w-6" />
+                      <Menu className="h-5 w-5" />
                     </Button>
                   </SheetTrigger>
                   <SheetContent
@@ -328,20 +334,22 @@ export function Navbar({ lang, dict }: NavbarProps) {
             {/* Social media icons */}
             <Link
               href="https://facebook.com"
-              className="text-white hover:text-avangarda"
+              className="hidden xl:flex text-white hover:text-avangarda"
               aria-label="Visit our Facebook page"
             >
               <Facebook className="h-4 w-4 sm:h-5 sm:w-5" />
             </Link>
             <Link
               href="https://facebook.com"
-              className="text-white hover:text-avangarda"
+              className="hidden xl:flex text-white hover:text-avangarda"
               aria-label="Visit our Instagram page"
             >
               <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
             </Link>
 
-            <LanguageSwitcher />
+            <div className="hidden xl:block">
+              <LanguageSwitcher />
+            </div>
 
             <Button
               size="sm"
@@ -364,9 +372,10 @@ export function Navbar({ lang, dict }: NavbarProps) {
                 <Button
                   variant="link"
                   size="icon"
-                  className="xl:hidden text-white hover:bg-white/10 p-2"
+                  className="xl:hidden text-white p-1"
+                  asChild
                 >
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent

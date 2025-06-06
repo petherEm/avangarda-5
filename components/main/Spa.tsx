@@ -29,7 +29,7 @@ const Spa = ({ lang = "pl", dict, className }: SpaProps) => {
     >
       {/* Background Image - Add z-index to push it behind content */}
       <div className="absolute inset-0 -z-10">
-        <BackgroundLogoBottomDark position="left" />
+        <BackgroundLogoBottomDark position="right" />
       </div>
       <div className="max-w-7xl mx-auto relative z-10">
         {/* The z-10 ensures content is above background */}

@@ -123,8 +123,8 @@ const Offers = ({ dict, lang, offers }: OffersProps) => {
   };
 
   return (
-    <Container className="mt-10 w-full text-primary bg-gradient-to-b from-white to-gray-50">
-      <div className="relative max-w-7xl mx-auto sm:px-4 py-12">
+    <Container className="mt-6 w-full text-primary bg-gradient-to-b from-white to-gray-50">
+      <div className="relative max-w-7xl mx-auto sm:px-4 py-8">
         <div className="mb-10 md:mb-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -136,29 +136,31 @@ const Offers = ({ dict, lang, offers }: OffersProps) => {
           </motion.h2>
         </div>
 
-        {/* Navigation Controls */}
-        <div className="hidden md:flex justify-end gap-2 mb-6">
+        {/* Offers Carousel */}
+        <div className="relative">
+          {/* Left Navigation Arrow */}
           <button
             onClick={() => scroll("left")}
-            className="p-2 rounded-full bg-white border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors"
+            className="absolute left-4 z-10 p-3 rounded-full bg-white border-2 border-avangarda shadow-lg hover:bg-gray-50 transition-all duration-300 hidden md:flex items-center justify-center"
+            style={{ top: "calc(50% - 2rem)" }}
             aria-label="Previous offer"
             disabled={scrollPosition <= 10}
           >
             <ChevronLeft
-              className={`h-5 w-5 ${scrollPosition <= 10 ? "text-gray-300" : "text-gray-700"}`}
+              className={`h-6 w-6 ${scrollPosition <= 10 ? "text-gray-300" : "text-avangarda"}`}
             />
           </button>
+
+          {/* Right Navigation Arrow */}
           <button
             onClick={() => scroll("right")}
-            className="p-2 rounded-full bg-white border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors"
+            className="absolute right-4 z-10 p-3 rounded-full bg-white border-2 border-avangarda shadow-lg hover:bg-gray-50 transition-all duration-300 hidden md:flex items-center justify-center"
+            style={{ top: "calc(50% - 2rem)" }}
             aria-label="Next offer"
           >
-            <ChevronRight className="h-5 w-5 text-gray-700" />
+            <ChevronRight className="h-6 w-6 text-avangarda" />
           </button>
-        </div>
 
-        {/* Offers Carousel */}
-        <div className="relative">
           <div
             ref={scrollContainerRef}
             onScroll={handleScroll}

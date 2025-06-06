@@ -1,14 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Facebook,
-  Instagram,
-  MapPin,
-  Phone,
-  Mail,
-  ArrowRight,
-} from "lucide-react";
+import { Facebook, Instagram, MapPin, Phone, Mail } from "lucide-react";
 
 import { Container } from "@/components/container";
 
@@ -56,35 +49,38 @@ export function Footer({ lang, dict }: FooterProps) {
             <div className="lg:col-span-7 space-y-12">
               {/* Logo and Description */}
               <div className="space-y-6">
-                <Link href={getLocalizedHref("/")} className="block w-fit">
-                  <Image
-                    src="/avangarda-logo-lg-2.png"
-                    alt="Hotel Avangarda"
-                    width={240}
-                    height={120}
-                    className="h-auto w-[180px] md:w-[220px] hover:scale-105 transition-transform duration-300"
-                  />
-                </Link>
-                <p className="text-white/80 text-sm md:text-base max-w-md leading-relaxed">
-                  Luksusowy hotel w sercu Różana oferujący niezapomniane
-                  doświadczenia, eleganckie wnętrza i wyjątkową gościnność.
-                </p>
-                {/* Social Media */}
-                <div className="flex gap-4">
-                  <Link
-                    href="https://facebook.com"
-                    className="w-10 h-10 bg-white/10 hover:bg-avangarda rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                    aria-label="Facebook"
-                  >
-                    <Facebook className="h-5 w-5" />
+                {/* Mobile: Center everything, Desktop: Left align */}
+                <div className="flex flex-col items-center md:items-start space-y-4">
+                  <Link href={getLocalizedHref("/")} className="block">
+                    <Image
+                      src="/avangarda-logo-lg-2.png"
+                      alt="Hotel Avangarda"
+                      width={240}
+                      height={120}
+                      className="h-auto w-[180px] md:w-[220px] hover:scale-105 transition-transform duration-300"
+                    />
                   </Link>
-                  <Link
-                    href="https://instagram.com"
-                    className="w-10 h-10 bg-white/10 hover:bg-avangarda rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                    aria-label="Instagram"
-                  >
-                    <Instagram className="h-5 w-5" />
-                  </Link>
+                  <p className="text-white/80 text-sm md:text-base max-w-md leading-relaxed text-center md:text-left">
+                    Luksusowy hotel w sercu Różana oferujący niezapomniane
+                    doświadczenia, eleganckie wnętrza i wyjątkową gościnność.
+                  </p>
+                  {/* Social Media - centered on mobile */}
+                  <div className="flex gap-4">
+                    <Link
+                      href="https://facebook.com"
+                      className="w-10 h-10 bg-white/10 hover:bg-avangarda rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                      aria-label="Facebook"
+                    >
+                      <Facebook className="h-5 w-5" />
+                    </Link>
+                    <Link
+                      href="https://instagram.com"
+                      className="w-10 h-10 bg-white/10 hover:bg-avangarda rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                      aria-label="Instagram"
+                    >
+                      <Instagram className="h-5 w-5" />
+                    </Link>
+                  </div>
                 </div>
               </div>
 
@@ -98,16 +94,16 @@ export function Footer({ lang, dict }: FooterProps) {
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 group">
-                      <div className="w-8 h-8 bg-avangarda/20 rounded-lg flex items-center justify-center group-hover:bg-avangarda transition-colors">
-                        <Phone className="h-4 w-4 text-avangarda group-hover:text-white" />
+                      <div className="w-8 h-8 bg-avangarda/20 flex items-center justify-center ">
+                        <Phone className="h-4 w-4 text-avangarda " />
                       </div>
                       <span className="text-white/80 text-sm">
                         +48 29 752 50 34
                       </span>
                     </div>
                     <div className="flex items-center gap-3 group">
-                      <div className="w-8 h-8 bg-avangarda/20 rounded-lg flex items-center justify-center group-hover:bg-avangarda transition-colors">
-                        <Mail className="h-4 w-4 text-avangarda group-hover:text-white" />
+                      <div className="w-8 h-8 bg-avangarda/20 flex items-center justify-center ">
+                        <Mail className="h-4 w-4 text-avangarda " />
                       </div>
                       <Link
                         href="mailto:info@hotelavangarda.pl"
@@ -126,8 +122,8 @@ export function Footer({ lang, dict }: FooterProps) {
                     Lokalizacja
                   </h3>
                   <div className="flex items-start gap-3 group">
-                    <div className="w-8 h-8 bg-avangarda/20 rounded-lg flex items-center justify-center group-hover:bg-avangarda transition-colors">
-                      <MapPin className="h-4 w-4 text-avangarda group-hover:text-white" />
+                    <div className="w-8 h-8 bg-avangarda/20 flex items-center justify-center ">
+                      <MapPin className="h-4 w-4 text-avangarda " />
                     </div>
                     <address className="not-italic text-white/80 text-sm leading-relaxed">
                       ul. Królowej Bony 3<br />
@@ -145,16 +141,16 @@ export function Footer({ lang, dict }: FooterProps) {
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 group">
-                      <div className="w-8 h-8 bg-avangarda/20 rounded-lg flex items-center justify-center group-hover:bg-avangarda transition-colors">
-                        <Phone className="h-4 w-4 text-avangarda group-hover:text-white" />
+                      <div className="w-8 h-8 bg-avangarda/20 flex items-center justify-center ">
+                        <Phone className="h-4 w-4 text-avangarda " />
                       </div>
                       <span className="text-white/80 text-sm">
                         +48 505 158 200
                       </span>
                     </div>
                     <div className="flex items-center gap-3 group">
-                      <div className="w-8 h-8 bg-avangarda/20 rounded-lg flex items-center justify-center group-hover:bg-avangarda transition-colors">
-                        <Mail className="h-4 w-4 text-avangarda group-hover:text-white" />
+                      <div className="w-8 h-8 bg-avangarda/20 flex items-center justify-center ">
+                        <Mail className="h-4 w-4 text-avangarda " />
                       </div>
                       <Link
                         href="mailto:agnieszka.kobylinska@hotelavangarda.pl"
@@ -174,16 +170,16 @@ export function Footer({ lang, dict }: FooterProps) {
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 group">
-                      <div className="w-8 h-8 bg-avangarda/20 rounded-lg flex items-center justify-center group-hover:bg-avangarda transition-colors">
-                        <Phone className="h-4 w-4 text-avangarda group-hover:text-white" />
+                      <div className="w-8 h-8 bg-avangarda/20 flex items-center justify-center ">
+                        <Phone className="h-4 w-4 text-avangarda " />
                       </div>
                       <span className="text-white/80 text-sm">
                         +48 505 158 210
                       </span>
                     </div>
                     <div className="flex items-center gap-3 group">
-                      <div className="w-8 h-8 bg-avangarda/20 rounded-lg flex items-center justify-center group-hover:bg-avangarda transition-colors">
-                        <Mail className="h-4 w-4 text-avangarda group-hover:text-white" />
+                      <div className="w-8 h-8 bg-avangarda/20 flex items-center justify-center ">
+                        <Mail className="h-4 w-4 text-avangarda " />
                       </div>
                       <Link
                         href="mailto:konferencje@hotelavangarda.pl"
@@ -227,12 +223,13 @@ export function Footer({ lang, dict }: FooterProps) {
               Szybka nawigacja
             </h3>
             {/* Full viewport width navigation */}
-            <div className="flex gap-3 justify-center flex-wrap lg:justify-between">
+            {/* Mobile: 2 columns, Desktop: horizontal flex */}
+            <div className="grid grid-cols-2 gap-2 md:flex md:gap-3 md:justify-center md:flex-wrap lg:justify-between">
               {MenuListing.map((item) => (
                 <Link
                   key={item.nameKey}
                   href={getLocalizedHref(item.href)}
-                  className="group flex items-center gap-2 px-6 py-3 hover:text-avangarda transition-all duration-300 hover:scale-105 whitespace-nowrap"
+                  className="group flex items-center gap-2 px-3 py-3 md:px-6 hover:text-avangarda transition-all duration-300 hover:scale-105 whitespace-nowrap justify-center md:justify-start"
                 >
                   <span className="text-sm text-white group-hover:text-avangarda uppercase tracking-wide">
                     {dict.nav[item.nameKey]}
