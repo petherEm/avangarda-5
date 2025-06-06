@@ -1,335 +1,14 @@
 "use client";
-import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Star, Quote, Users, Award, Heart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 interface TestimonialsProps {
   lang?: string;
   dict?: any;
 }
 
-function AbstractPattern({
-  variant = "geometric",
-  className = "",
-}: {
-  variant?: "flowing" | "geometric" | "organic";
-  className?: string;
-}) {
-  const baseClasses = "absolute inset-0 w-full h-full";
-
-  if (variant === "geometric") {
-    return (
-      <div className={`${baseClasses} ${className}`}>
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-white" />
-
-        {/* RD Logo - Main circulating element */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            className="relative w-32 h-32"
-            animate={{
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-          >
-            <motion.img
-              src="/avangarda-logo-sm-2.png"
-              alt="RD Logo"
-              className="w-full h-full object-contain"
-              animate={{
-                scale: [1, 1.3, 1],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            />
-          </motion.div>
-        </div>
-
-        {/* Smaller RD logos orbiting around */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            className="relative w-96 h-96"
-            animate={{
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-          >
-            <motion.img
-              src="/avangarda-logo-sm-2.png"
-              alt="RD Logo"
-              className="absolute top-0 left-1/2 w-16 h-16 object-contain -translate-x-1/2 opacity-60"
-              animate={{
-                scale: [0.8, 1.2, 0.8],
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 0.5,
-              }}
-            />
-            <motion.img
-              src="/avangarda-logo-sm-2.png"
-              alt="RD Logo"
-              className="absolute bottom-0 left-1/2 w-20 h-20 object-contain -translate-x-1/2 opacity-50"
-              animate={{
-                scale: [1, 0.7, 1],
-              }}
-              transition={{
-                duration: 3.5,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-            />
-            <motion.img
-              src="/avangarda-logo-sm-2.png"
-              alt="RD Logo"
-              className="absolute left-0 top-1/2 w-14 h-14 object-contain -translate-y-1/2 opacity-70"
-              animate={{
-                scale: [0.9, 1.4, 0.9],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 1.5,
-              }}
-            />
-            <motion.img
-              src="/avangarda-logo-sm-2.png"
-              alt="RD Logo"
-              className="absolute right-0 top-1/2 w-18 h-18 object-contain -translate-y-1/2 opacity-40"
-              animate={{
-                scale: [1.1, 0.6, 1.1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 2,
-              }}
-            />
-          </motion.div>
-        </div>
-
-        {/* Counter-rotating outer ring */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            className="relative w-[500px] h-[500px]"
-            animate={{
-              rotate: [360, 0],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-          >
-            <motion.img
-              src="/avangarda-logo-sm-2.png"
-              alt="RD Logo"
-              className="absolute top-8 left-1/2 w-12 h-12 object-contain -translate-x-1/2 opacity-30"
-              animate={{
-                scale: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 2.8,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            />
-            <motion.img
-              src="/avangarda-logo-sm-2.png"
-              alt="RD Logo"
-              className="absolute top-1/2 right-8 w-10 h-10 object-contain -translate-y-1/2 opacity-35"
-              animate={{
-                scale: [0.7, 1.3, 0.7],
-              }}
-              transition={{
-                duration: 3.2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 0.8,
-              }}
-            />
-            <motion.img
-              src="/avangarda-logo-sm-2.png"
-              alt="RD Logo"
-              className="absolute bottom-8 left-1/2 w-14 h-14 object-contain -translate-x-1/2 opacity-25"
-              animate={{
-                scale: [1, 0.4, 1],
-              }}
-              transition={{
-                duration: 2.2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 1.2,
-              }}
-            />
-            <motion.img
-              src="/avangarda-logo-sm-2.png"
-              alt="RD Logo"
-              className="absolute top-1/2 left-8 w-16 h-16 object-contain -translate-y-1/2 opacity-45"
-              animate={{
-                scale: [0.6, 1.1, 0.6],
-              }}
-              transition={{
-                duration: 3.8,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 1.8,
-              }}
-            />
-          </motion.div>
-        </div>
-
-        {/* Floating individual logos with random movement - Bigger and on sides */}
-        <motion.img
-          src="/avangarda-logo-sm-2.png"
-          alt="RD Logo"
-          className="absolute top-16 right-20 w-20 h-20 object-contain opacity-40"
-          animate={{
-            scale: [1, 2, 1],
-            x: [0, 50, -30, 0],
-            y: [0, -25, 40, 0],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-
-        <motion.img
-          src="/avangarda-logo-sm-2.png"
-          alt="RD Logo"
-          className="absolute bottom-20 left-16 w-24 h-24 object-contain opacity-50"
-          animate={{
-            scale: [1.2, 0.8, 1.8, 1.2],
-            x: [0, -60, 40, 0],
-            y: [0, 50, -20, 0],
-            rotate: [0, -90, -180, -270, -360],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 3,
-          }}
-        />
-
-        <motion.img
-          src="/avangarda-logo-sm-2.png"
-          alt="RD Logo"
-          className="absolute top-1/3 left-20 w-16 h-16 object-contain opacity-60"
-          animate={{
-            scale: [1.1, 2.2, 1.1],
-            x: [0, 80, -50, 0],
-            y: [0, -60, 55, 0],
-          }}
-          transition={{
-            duration: 14,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 5,
-          }}
-        />
-
-        {/* Additional larger logos on the sides */}
-        <motion.img
-          src="/avangarda-logo-sm-2.png"
-          alt="RD Logo"
-          className="absolute top-1/4 right-12 w-28 h-28 object-contain opacity-35"
-          animate={{
-            scale: [0.8, 1.6, 0.8],
-            x: [0, -40, 20, 0],
-            y: [0, 30, -15, 0],
-            rotate: [0, 120, 240, 360],
-          }}
-          transition={{
-            duration: 16,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
-
-        <motion.img
-          src="/avangarda-logo-sm-2.png"
-          alt="RD Logo"
-          className="absolute bottom-1/4 left-8 w-32 h-32 object-contain opacity-30"
-          animate={{
-            scale: [1, 0.6, 1.4, 1],
-            x: [0, 70, -35, 0],
-            y: [0, -45, 60, 0],
-            rotate: [0, -150, -300, -360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 7,
-          }}
-        />
-
-        <motion.img
-          src="/avangarda-logo-sm-2.png"
-          alt="RD Logo"
-          className="absolute top-2/3 right-16 w-22 h-22 object-contain opacity-45"
-          animate={{
-            scale: [1.3, 2.1, 1.3],
-            x: [0, -55, 25, 0],
-            y: [0, 35, -25, 0],
-          }}
-          transition={{
-            duration: 13,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 4,
-          }}
-        />
-
-        <motion.img
-          src="/avangarda-logo-sm-2.png"
-          alt="RD Logo"
-          className="absolute top-1/2 left-4 w-26 h-26 object-contain opacity-40"
-          animate={{
-            scale: [0.9, 1.8, 0.9],
-            x: [0, 90, -45, 0],
-            y: [0, -70, 80, 0],
-            rotate: [0, 90, 180, 270, 360],
-          }}
-          transition={{
-            duration: 22,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 8,
-          }}
-        />
-      </div>
-    );
-  }
-
-  return null;
-}
-
 const Testimonials = ({ lang = "pl", dict }: TestimonialsProps) => {
-  const [shouldAnimate, setShouldAnimate] = useState(false);
-
   // Sample testimonials data
   const testimonials = [
     {
@@ -358,81 +37,155 @@ const Testimonials = ({ lang = "pl", dict }: TestimonialsProps) => {
     },
   ];
 
-  useEffect(() => {
-    setShouldAnimate(true);
-  }, []);
-
   return (
-    <section className="w-full py-8 md:py-16 overflow-hidden relative">
-      {/* Abstract Pattern Background */}
-      <AbstractPattern variant="geometric" />
+    <section
+      className="w-full py-16 md:py-24 relative"
+      style={{ backgroundColor: "#404042" }}
+    >
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+      </div>
 
       {/* Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 space-y-6 py-16">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="uppercase text-4xl md:text-5xl text-center font-semibold tracking-wider text-black"
-        >
-          Co mówią nasi goście?
-        </motion.h1>
+      <div className="relative z-10 max-w-7xl mx-auto px-4">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <Heart className="h-6 w-6 text-avangarda" />
+            <Badge className="bg-avangarda/20 text-avangarda border-avangarda/30 hover:bg-avangarda/20">
+              Opinie gości
+            </Badge>
+            <Heart className="h-6 w-6 text-avangarda" />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            Co mówią o nas
+          </h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            Poznaj opinie naszych gości i przekonaj się, dlaczego wybierają
+            Hotel Avangarda
+          </p>
+        </div>
+
+        {/* Ratings Section - Now on top */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {/* TripAdvisor */}
+          <div className="text-center">
+            <div className="bg-white/10 backdrop-blur-sm rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4 relative">
+              <Image
+                src="/tripadvisor-new-2.png"
+                alt="TripAdvisor Reviews"
+                fill
+                className="w-22 h-20 object-cover"
+              />
+            </div>
+            <div className="flex justify-center mb-2">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className="h-4 w-4 fill-yellow-400 text-yellow-400 mx-0.5"
+                />
+              ))}
+            </div>
+            <div className="text-3xl font-bold text-white mb-2">4.8/5</div>
+            <div className="text-gray-300">TripAdvisor</div>
+          </div>
+
+          {/* Booking.com */}
+          <div className="text-center">
+            <div className="bg-white/10 backdrop-blur-sm rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4 relative">
+              <Image
+                src="/booking-new-2.png"
+                alt="Booking.com"
+                fill
+                className="w-22 h-20 object-cover"
+              />
+            </div>
+            <div className="flex justify-center mb-2">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className="h-4 w-4 fill-blue-400 text-blue-400 mx-0.5"
+                />
+              ))}
+            </div>
+            <div className="text-3xl font-bold text-white mb-2">9.2/10</div>
+            <div className="text-gray-300">Booking.com</div>
+          </div>
+
+          {/* Google */}
+          <div className="text-center">
+            <div className="bg-white/10 backdrop-blur-sm rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4 relative">
+              <Image
+                src="/google-new-2.png"
+                alt="Google Reviews"
+                fill
+                className="w-22 h-20 object-cover"
+              />
+            </div>
+            <div className="flex justify-center mb-2">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className="h-4 w-4 fill-amber-400 text-amber-400 mx-0.5"
+                />
+              ))}
+            </div>
+            <div className="text-3xl font-bold text-white mb-2">4.7/5</div>
+            <div className="text-gray-300">Google Reviews</div>
+          </div>
+        </div>
 
         {/* Testimonials Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <motion.div
+            <div
               key={testimonial.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 + index * 0.1 }}
-              className="bg-white/90 backdrop-blur-sm p-6 text-black relative rounded-lg shadow-lg border border-white/20"
+              className="bg-white/10 backdrop-blur-sm border border-white/20  p-8 relative group hover:bg-white/15 transition-all duration-300"
             >
               {/* Quote Icon */}
-              <div className="absolute -top-3 left-6">
-                <div className="bg-[#E31C79] p-2 rounded-full">
-                  <Quote className="h-4 w-4 text-white" />
+              <div className="absolute -top-4 left-8">
+                <div className="bg-avangarda p-3 rounded-full shadow-lg">
+                  <Quote className="h-5 w-5 text-white" />
                 </div>
               </div>
 
               {/* Stars */}
-              <div className="flex justify-center mb-4 mt-2">
+              <div className="flex justify-center mb-6 mt-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star
                     key={i}
-                    className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                    className="h-5 w-5 fill-yellow-400 text-yellow-400 mx-0.5"
                   />
                 ))}
               </div>
 
               {/* Testimonial Text */}
-              <p className="text-black text-center mb-6 leading-relaxed italic">
+              <p className="text-white text-center mb-8 leading-relaxed text-lg">
                 "{testimonial.text}"
               </p>
 
               {/* Author Info */}
-              <div className="text-center">
-                <p className="font-semibold text-black">{testimonial.name}</p>
-                <p className="text-sm text-gray-700 mb-2">
-                  {testimonial.location}
+              <div className="text-center border-t border-white/20 pt-6">
+                <p className="font-semibold text-white text-lg">
+                  {testimonial.name}
                 </p>
+                <p className="text-gray-300 mb-3">{testimonial.location}</p>
                 <Badge
                   variant="outline"
-                  className="text-xs border-[#E31C79] text-[#E31C79]"
+                  className="border-avangarda/50 text-avangarda bg-avangarda/10"
                 >
                   {testimonial.platform}
                 </Badge>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -36,34 +36,6 @@ interface AboutProps {
 const About = ({ dict, lang }: AboutProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
 
-  // Sample testimonials data
-  const testimonials = [
-    {
-      id: 1,
-      name: "Anna Kowalska",
-      location: "Warszawa",
-      rating: 5,
-      text: "Niesamowite miejsce! Personel bardzo pomocny, pokoje czyste i wygodne. SPA to prawdziwa oaza spokoju. Na pewno wrócimy!",
-      platform: "Booking.com",
-    },
-    {
-      id: 2,
-      name: "Michał Nowak",
-      location: "Kraków",
-      rating: 5,
-      text: "Hotel przekroczył nasze oczekiwania. Restauracja serwuje wyśmienite posiłki, a lokalizacja jest idealna na relaks z dala od miejskiego zgiełku.",
-      platform: "Google",
-    },
-    {
-      id: 3,
-      name: "Katarzyna Wiśniewska",
-      location: "Gdańsk",
-      rating: 5,
-      text: "Organizowaliśmy tu wesele i wszystko było perfekcyjne. Obsługa na najwyższym poziomie, jedzenie wyśmienite, goście zachwyceni!",
-      platform: "TripAdvisor",
-    },
-  ];
-
   return (
     <>
       <div className="mt-20 max-w-7xl mx-auto px-4">
@@ -221,87 +193,6 @@ const About = ({ dict, lang }: AboutProps) => {
                     </div>
                   </li>
                 </ul>
-              </div>
-
-              {/* Ratings Section - Better distributed and mobile-friendly */}
-              <div className="mt-auto">
-                <div className="flex items-center gap-3 mb-4">
-                  <Badge className="bg-pink-100 text-avangarda hover:bg-pink-100">
-                    Oceny gości
-                  </Badge>
-                  <div className="h-px flex-1 bg-gray-100"></div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {/* TripAdvisor */}
-                  <div className="flex flex-col items-center bg-white  p-4 ">
-                    <Image
-                      src="/tripadvisor-2.png"
-                      alt="TripAdvisor Reviews"
-                      width={90}
-                      height={20}
-                      className="-mt-4 h-auto object-contain"
-                    />
-                    <div className="flex mb-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="h-4 w-4 fill-yellow-400 text-yellow-400"
-                        />
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-600 mb-1">
-                      Znakomity
-                    </span>
-                    <span className="text-sm font-medium">4.8/5</span>
-                  </div>
-
-                  {/* Booking.com */}
-                  <div className="flex flex-col items-center bg-white  p-4 ">
-                    <Image
-                      src="/booking.png"
-                      alt="Booking.com"
-                      width={60}
-                      height={20}
-                      className="h-auto object-contain mb-2"
-                    />
-                    <div className="flex mb-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="h-4 w-4 fill-blue-600 text-blue-600"
-                        />
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-600 mb-1">
-                      Znakomity
-                    </span>
-                    <span className="text-sm font-medium">9.2/10</span>
-                  </div>
-
-                  {/* Google */}
-                  <div className="flex flex-col items-center bg-white p-4 ">
-                    <Image
-                      src="/google-logo-2.jpeg"
-                      alt="Google Reviews"
-                      width={60}
-                      height={20}
-                      className="h-auto object-contain mb-2"
-                    />
-                    <div className="flex mb-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="h-4 w-4 fill-amber-500 text-amber-500"
-                        />
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-600 mb-1">
-                      Znakomity
-                    </span>
-                    <span className="text-sm font-medium">4.7/5</span>
-                  </div>
-                </div>
               </div>
             </div>
           </motion.div>

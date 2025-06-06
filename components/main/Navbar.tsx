@@ -86,28 +86,31 @@ export function Navbar({ lang, dict }: NavbarProps) {
   const getLocalizedHref = (path: string) => `/${lang}${path}`;
 
   const MobileMenuContent = () => (
-    <>
-      <SheetHeader>
-        <SheetTitle>
+    <div className="flex flex-col h-full">
+      <SheetHeader className="mb-4">
+        <SheetTitle className="flex justify-center">
           <Image
             src="/avangarda-logo-sm-3.png"
             alt="Hotel Avangarda"
-            width={110}
-            height={88}
-            className="h-auto w-[110px]"
+            width={100}
+            height={80}
+            className="h-auto w-[100px]"
             quality={100}
             priority
           />
         </SheetTitle>
       </SheetHeader>
-      <div className="mt-6 flex flex-col gap-4">
-        <nav className="flex flex-col space-y-3 text-white">
+
+      <div className="flex flex-col gap-4 flex-1 overflow-y-auto">
+        <nav className="flex flex-col space-y-2 text-white">
           {MenuListing.map((item) => (
             <Link
               key={item.nameKey}
               href={getLocalizedHref(item.href)}
-              className={`text-sm font-alata font-medium transition-colors ${
-                isActive(item.href) ? "text-avangarda" : "hover:text-avangarda"
+              className={`text-base font-alata font-medium transition-colors py-2 px-3 rounded-md ${
+                isActive(item.href)
+                  ? "text-avangarda bg-avangarda/10"
+                  : "hover:text-avangarda hover:bg-white/5"
               }`}
               onClick={() => setIsSheetOpen(false)}
             >
@@ -115,38 +118,44 @@ export function Navbar({ lang, dict }: NavbarProps) {
             </Link>
           ))}
         </nav>
-        <div className="flex flex-col gap-3">
+
+        <div className="flex flex-col gap-3 pt-3 border-t border-white/20">
           <Button
             variant="ghost"
             size="sm"
-            className="w-full font-alata justify-start gap-2 text-white"
+            className="w-full font-alata justify-start gap-2 text-white hover:bg-white/10 py-2 text-sm"
             onClick={() => setIsSheetOpen(false)}
           >
             <Phone className="h-4 w-4 text-white" />
             {dict.nav.phone}
           </Button>
+
           <Button
             variant="ghost"
             size="sm"
-            className="w-full font-alata justify-start gap-2 text-white"
+            className="w-full font-alata justify-start gap-2 text-white hover:bg-white/10 py-2 text-sm"
             onClick={() => setIsSheetOpen(false)}
           >
             <Gift className="h-4 w-4 text-white" />
             Kup Voucher
           </Button>
+
           <Button
-            className="bg-avangarda text-white hover:bg-avangarda/90"
+            size="sm"
+            className="bg-avangarda text-white hover:bg-avangarda/90 py-2 text-sm font-alata"
             onClick={() => setIsSheetOpen(false)}
           >
             {dict.nav.book}
           </Button>
-          <div className="flex justify-center">
+
+          <div className="flex justify-center pt-2">
             <LanguageSwitcher />
           </div>
-          <div className="flex justify-center gap-4 mt-2">
+
+          <div className="flex justify-center gap-4 pt-2">
             <Link
               href="https://facebook.com"
-              className="text-white hover:text-avangarda"
+              className="text-white hover:text-avangarda transition-colors p-1"
               aria-label="Visit our Facebook page"
               onClick={() => setIsSheetOpen(false)}
             >
@@ -154,7 +163,7 @@ export function Navbar({ lang, dict }: NavbarProps) {
             </Link>
             <Link
               href="https://facebook.com"
-              className="text-white hover:text-avangarda"
+              className="text-white hover:text-avangarda transition-colors p-1"
               aria-label="Visit our Instagram page"
               onClick={() => setIsSheetOpen(false)}
             >
@@ -163,14 +172,14 @@ export function Navbar({ lang, dict }: NavbarProps) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 
   return (
     <Container
       ref={navRef}
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
-        isScrolled || isHovered ? "bg-primary" : "bg-transparent pt-2 sm:pt-4"
+        isScrolled || isHovered ? "bg-primary" : "bg-transparent pt-2 sm:pt-6"
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -179,105 +188,196 @@ export function Navbar({ lang, dict }: NavbarProps) {
     >
       {/* Top bar */}
       <div
-        className={`flex items-center transition-all duration-500 ${
-          isScrolled ? "h-16 justify-between" : "justify-end gap-4 py-2"
+        className={`transition-all duration-500 ${
+          isScrolled
+            ? "pb-2" // Add padding bottom when scrolled to separate the two rows
+            : "flex items-center justify-end gap-4 py-2"
         }`}
       >
-        {/* Logo when scrolled */}
-        {isScrolled && (
-          <Link href={getLocalizedHref("/")} className="flex-shrink-0">
-            <Image
-              src="/avangarda-logo-sm-3.png"
-              alt="Hotel Avangarda"
-              width={110}
-              height={88}
-              className="h-auto w-[90px] transition-opacity duration-500 sm:w-[110px]"
-              quality={100}
-              priority
-            />
-          </Link>
-        )}
+        {isScrolled ? (
+          // Two-row layout when scrolled on desktop (xl+), single row when mobile menu is visible
+          <>
+            {/* First row: Social media icons (left) + LOGO (center) + call button & language switcher (right) - DESKTOP ONLY (xl+) */}
+            <div className="hidden xl:flex items-center justify-between py-1">
+              {/* Social media icons on the left */}
+              <div className="flex items-center gap-4">
+                <Link
+                  href="https://facebook.com"
+                  className="text-white hover:text-avangarda"
+                  aria-label="Visit our Facebook page"
+                >
+                  <Facebook className="h-3 w-3 sm:h-4 sm:w-4" />
+                </Link>
+                <Link
+                  href="https://facebook.com"
+                  className="text-white hover:text-avangarda"
+                  aria-label="Visit our Instagram page"
+                >
+                  <Instagram className="h-3 w-3 sm:h-4 sm:w-4" />
+                </Link>
+              </div>
 
-        {/* Center navigation for desktop when scrolled */}
-        {isScrolled && (
-          <nav className="hidden xl:flex items-center justify-center gap-3 xl:gap-6 flex-1">
-            {MenuListing.map((item) => (
-              <Link
-                key={item.nameKey}
-                href={getLocalizedHref(item.href)}
-                className={`whitespace-nowrap text-sm font-alata font-medium transition-colors tracking-wide ${
-                  isActive(item.href)
-                    ? "text-avangarda"
-                    : "text-white hover:text-avangarda"
-                }`}
-              >
-                {dict.nav[item.nameKey]}
+              {/* Logo in center */}
+              <Link href={getLocalizedHref("/")} className="flex-shrink-0">
+                <Image
+                  src="/avangarda-logo-sm-3.png"
+                  alt="Hotel Avangarda"
+                  width={110}
+                  height={88}
+                  className="h-auto w-[90px] transition-opacity duration-500 sm:w-[110px]"
+                  quality={100}
+                  priority
+                />
               </Link>
-            ))}
-          </nav>
-        )}
 
-        {/* Right side items */}
-        <div
-          className={`flex items-center ${isScrolled ? "gap-2 sm:gap-4" : "gap-4"}`}
-        >
-          {/* Social media icons - visible in both states */}
-          <Link
-            href="https://facebook.com"
-            className="text-white hover:text-avangarda"
-            aria-label="Visit our Facebook page"
-          >
-            <Facebook className="h-4 w-4 sm:h-5 sm:w-5" />
-          </Link>
-          <Link
-            href="https://facebook.com"
-            className="text-white hover:text-avangarda"
-            aria-label="Visit our Instagram page"
-          >
-            <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
-          </Link>
+              {/* Call button and language switcher on the right */}
+              <div className="flex items-center gap-2 sm:gap-4">
+                <Button className="w-fit ">
+                  <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="ml-1 sm:ml-2">{dict.nav.phone}</span>
+                </Button>
+                <LanguageSwitcher />
+              </div>
+            </div>
 
-          <LanguageSwitcher />
-
-          <Button
-            size="sm"
-            className="bg-avangarda font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm"
-          >
-            <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
-            {!isScrolled && (
-              <span className="ml-1 sm:ml-2">{dict.nav.phone}</span>
-            )}
-          </Button>
-
-          {/* Kup Voucher button - only visible on desktop */}
-          <Button
-            size="sm"
-            className="bg-avangarda font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm flex"
-          >
-            <GiftIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-            Kup Voucher
-          </Button>
-
-          {/* Mobile menu button */}
-          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-            <SheetTrigger asChild>
-              <Button
-                variant="link"
-                size="icon"
-                className="xl:hidden text-white"
-                asChild
-              >
-                <Menu className="h-8 w-8" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="w-[300px] bg-[#404042] border-l border-avangarda/20 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right data-[state=open]:duration-300 data-[state=closed]:duration-200"
+            {/* Second row: Navigation (center) and Kup Voucher button (right) - DESKTOP (xl+) */}
+            {/* Single row: Logo (left), phone, Kup Voucher, mobile menu - MOBILE/TABLET (below xl) */}
+            <div
+              className={`flex items-center justify-between ${
+                // Bigger padding for single row layout
+                isScrolled && "xl:py-2 py-3"
+              }`}
             >
-              <MobileMenuContent />
-            </SheetContent>
-          </Sheet>
-        </div>
+              {/* Logo on the left - ONLY for single row layout (below xl) */}
+              <Link
+                href={getLocalizedHref("/")}
+                className="flex-shrink-0 xl:hidden"
+              >
+                <Image
+                  src="/avangarda-logo-sm-3.png"
+                  alt="Hotel Avangarda"
+                  width={110}
+                  height={88}
+                  className="h-auto w-[90px] transition-opacity duration-500 sm:w-[110px]"
+                  quality={100}
+                  priority
+                />
+              </Link>
+
+              {/* Center navigation for desktop - takes full center space when logo is in top row */}
+              <nav className="hidden xl:flex items-center justify-center gap-3 xl:gap-6 flex-1">
+                {MenuListing.map((item) => (
+                  <Link
+                    key={item.nameKey}
+                    href={getLocalizedHref(item.href)}
+                    className={`whitespace-nowrap text-sm font-alata font-medium transition-colors tracking-wide ${
+                      isActive(item.href)
+                        ? "text-avangarda"
+                        : "text-white hover:text-avangarda"
+                    }`}
+                  >
+                    {dict.nav[item.nameKey]}
+                  </Link>
+                ))}
+              </nav>
+
+              {/* Right side buttons */}
+              <div className="flex items-center gap-2 sm:gap-4">
+                {/* Phone button - show when mobile menu is visible (below xl) */}
+                <Button
+                  size="sm"
+                  className="xl:hidden bg-avangarda font-alata px-3 py-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm"
+                >
+                  <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="ml-1 sm:ml-2">{dict.nav.phone}</span>
+                </Button>
+
+                <Button
+                  size="sm"
+                  className="bg-avangarda font-alata px-3 py-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm flex"
+                >
+                  <GiftIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                  Kup Voucher
+                </Button>
+
+                {/* Mobile menu button */}
+                <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+                  <SheetTrigger asChild>
+                    <Button
+                      variant="link"
+                      size="icon"
+                      className="xl:hidden text-white  p-2"
+                      asChild
+                    >
+                      <Menu className="h-6 w-6" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent
+                    side="right"
+                    className="bg-[#404042] border-l border-avangarda/20 p-4 w-[280px] sm:w-[320px]"
+                  >
+                    <MobileMenuContent />
+                  </SheetContent>
+                </Sheet>
+              </div>
+            </div>
+          </>
+        ) : (
+          // Original single row layout when not scrolled
+          <>
+            {/* Social media icons */}
+            <Link
+              href="https://facebook.com"
+              className="text-white hover:text-avangarda"
+              aria-label="Visit our Facebook page"
+            >
+              <Facebook className="h-4 w-4 sm:h-5 sm:w-5" />
+            </Link>
+            <Link
+              href="https://facebook.com"
+              className="text-white hover:text-avangarda"
+              aria-label="Visit our Instagram page"
+            >
+              <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
+            </Link>
+
+            <LanguageSwitcher />
+
+            <Button
+              size="sm"
+              className="bg-avangarda font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm"
+            >
+              <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="ml-1 sm:ml-2">{dict.nav.phone}</span>
+            </Button>
+
+            <Button
+              size="sm"
+              className="bg-avangarda font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm flex"
+            >
+              <GiftIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              Kup Voucher
+            </Button>
+
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  variant="link"
+                  size="icon"
+                  className="xl:hidden text-white hover:bg-white/10 p-2"
+                >
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                side="right"
+                className="bg-[#404042] border-l border-avangarda/20 p-4 w-[280px] sm:w-[320px]"
+              >
+                <MobileMenuContent />
+              </SheetContent>
+            </Sheet>
+          </>
+        )}
       </div>
 
       {/* Main navbar - only shown when not scrolled */}
