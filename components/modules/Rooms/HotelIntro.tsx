@@ -4,12 +4,10 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   ExternalLink,
-  Star,
   Waves,
   Utensils,
   CalendarHeart,
   TreePine,
-  Quote,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRef } from "react";
@@ -118,7 +116,7 @@ const About = ({ dict, lang }: AboutProps) => {
             transition={{ delay: 0.3 }}
             className="lg:col-span-6"
           >
-            <div className="mt-10 h-full flex flex-col">
+            <div className="mt-0 h-full flex flex-col">
               {/* What Makes Us Different Section */}
               <div className="mb-5">
                 <div className="flex items-center gap-3 mb-5">
@@ -192,12 +190,28 @@ const About = ({ dict, lang }: AboutProps) => {
                       </p>
                     </div>
                   </li>
+
+                  {/* Green Location */}
+                  <li className="flex items-start gap-3">
+                    <div className="p-1.5 rounded-full text-avangarda flex-shrink-0 mt-0.5">
+                      <TreePine className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg mb-0.5">
+                        Wyjątkowa lokalizacja
+                      </h3>
+                      <p className="text-gray-600 text-md">
+                        Położenie w zielonej okolicy tuż przy rzece, oferujące
+                        spokój i kontakt z naturą.
+                      </p>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column - Map with Button Overlay */}
+          {/* Right Column - Map with Better Button Placement */}
           <motion.div
             ref={mapRef}
             initial={{ opacity: 0, x: 20 }}
@@ -206,20 +220,15 @@ const About = ({ dict, lang }: AboutProps) => {
             transition={{ delay: 0.3 }}
             className="lg:col-span-6"
           >
-            <div className="relative overflow-hidden h-full min-h-[400px] lg:min-h-[500px]">
-              <div className="h-full w-full">
-                <Image
-                  src="/mapa-ava.png"
-                  alt="Map"
-                  fill
-                  className="object-contain w-full h-full"
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-
-              {/* Map Button Overlay */}
-              <div className="absolute bottom-4 right-4">
+            <div className="space-y-4">
+              {/* Map Header with Button */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Badge className="bg-pink-100 text-avangarda hover:bg-pink-100">
+                    Lokalizacja
+                  </Badge>
+                  <div className="h-px flex-1 bg-gray-100"></div>
+                </div>
                 <Button
                   size="sm"
                   className="bg-avangarda hover:bg-avangarda/90 text-white transition-all"
@@ -231,8 +240,22 @@ const About = ({ dict, lang }: AboutProps) => {
                   }
                 >
                   <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-                  Otwórz w Google Maps
+                  Google Maps
                 </Button>
+              </div>
+
+              {/* Map Image */}
+              <div className="relative overflow-hidden h-full min-h-[400px] lg:min-h-[500px]">
+                <div className="h-full w-full">
+                  <Image
+                    src="/mapa-ava.png"
+                    alt="Map"
+                    fill
+                    className="object-contain w-full h-full"
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
               </div>
             </div>
           </motion.div>

@@ -2,6 +2,7 @@
 import { Star, Quote, Users, Award, Heart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import BackgroundLogoBottomDark from "@/components/background-logo-bottom-dark";
 
 interface TestimonialsProps {
   lang?: string;
@@ -17,7 +18,7 @@ const Testimonials = ({ lang = "pl", dict }: TestimonialsProps) => {
       location: "Warszawa",
       rating: 5,
       text: "Niesamowite miejsce! Personel bardzo pomocny, pokoje czyste i wygodne. SPA to prawdziwa oaza spokoju. Na pewno wrócimy!",
-      platform: "Booking.com",
+      platform: "TripAdvisor",
     },
     {
       id: 2,
@@ -25,7 +26,7 @@ const Testimonials = ({ lang = "pl", dict }: TestimonialsProps) => {
       location: "Kraków",
       rating: 5,
       text: "Hotel przekroczył nasze oczekiwania. Restauracja serwuje wyśmienite posiłki, a lokalizacja jest idealna na relaks z dala od miejskiego zgiełku.",
-      platform: "Google",
+      platform: "Booking.com",
     },
     {
       id: 3,
@@ -33,7 +34,7 @@ const Testimonials = ({ lang = "pl", dict }: TestimonialsProps) => {
       location: "Gdańsk",
       rating: 5,
       text: "Organizowaliśmy tu wesele i wszystko było perfekcyjne. Obsługa na najwyższym poziomie, jedzenie wyśmienite, goście zachwyceni!",
-      platform: "TripAdvisor",
+      platform: "Google",
     },
   ];
 
@@ -42,29 +43,13 @@ const Testimonials = ({ lang = "pl", dict }: TestimonialsProps) => {
       className="w-full py-16 md:py-24 relative"
       style={{ backgroundColor: "#404042" }}
     >
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-      </div>
-
+      <BackgroundLogoBottomDark />
       {/* Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <Heart className="h-6 w-6 text-avangarda" />
-            <Badge className="bg-avangarda/20 text-avangarda border-avangarda/30 hover:bg-avangarda/20">
-              Opinie gości
-            </Badge>
-            <Heart className="h-6 w-6 text-avangarda" />
-          </div>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            Co mówią o nas
+            Co mówią nasi goście?
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Poznaj opinie naszych gości i przekonaj się, dlaczego wybierają
@@ -146,7 +131,7 @@ const Testimonials = ({ lang = "pl", dict }: TestimonialsProps) => {
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className="bg-white/10 backdrop-blur-sm border border-white/20  p-8 relative group hover:bg-white/15 transition-all duration-300"
+              className="bg-white/10 backdrop-blur-sm  p-8 relative"
             >
               {/* Quote Icon */}
               <div className="absolute -top-4 left-8">

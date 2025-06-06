@@ -234,7 +234,7 @@ export function Navbar({ lang, dict }: NavbarProps) {
               <div className="flex items-center gap-2 sm:gap-4">
                 <Button
                   size="sm"
-                  className="bg-avangarda font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm"
+                  className="bg-transparent font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm"
                 >
                   <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="ml-1 sm:ml-2">{dict.nav.phone}</span>
