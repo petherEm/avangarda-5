@@ -55,7 +55,7 @@ export default function VideoPlayer() {
         preload="auto"
       >
         <source
-          src="https://moviestorage.fra1.cdn.digitaloceanspaces.com/business.mp4"
+          src="https://moviestorage.fra1.cdn.digitaloceanspaces.com/business_reduced.mp4"
           type="video/mp4"
         />
       </video>

@@ -6,6 +6,8 @@ import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import BackgroundLogosDark from "../background-logos-random-dark";
+import BackgroundLogoBottomDark from "../background-logo-bottom-dark";
 
 interface BusinessProps {
   lang?: string;
@@ -22,31 +24,27 @@ const fadeInScale = {
   animate: { opacity: 1, scale: 1 },
 };
 
-const Business = ({ lang = "pl", dict }: BusinessProps) => {
-  // State to track window resize
-  const [windowWidth, setWindowWidth] = useState(0);
-  // Ref for content section height
-  const contentRef = useRef<HTMLDivElement>(null);
-  // State to store content height
-  const [contentHeight, setContentHeight] = useState(0);
+const fadeInLeft = {
+  initial: { opacity: 0, x: -30 },
+  animate: { opacity: 1, x: 0 },
+};
 
-  // Determine the business URL based on language
+const fadeInRight = {
+  initial: { opacity: 0, x: 30 },
+  animate: { opacity: 1, x: 0 },
+};
+
+const Business = ({ lang = "pl", dict }: BusinessProps) => {
+  const [windowWidth, setWindowWidth] = useState(0);
+  const contentRef = useRef<HTMLDivElement>(null);
+
   const businessUrl = lang === "en" ? "/en/biznes" : "/pl/biznes";
 
-  // Effect to handle window resize and content height
   useEffect(() => {
-    // Set initial width and content height
     setWindowWidth(window.innerWidth);
-    if (contentRef.current) {
-      setContentHeight(contentRef.current.offsetHeight);
-    }
 
-    // Update width and content height on resize
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
-      if (contentRef.current) {
-        setContentHeight(contentRef.current.offsetHeight);
-      }
     };
 
     window.addEventListener("resize", handleResize);
@@ -54,175 +52,179 @@ const Business = ({ lang = "pl", dict }: BusinessProps) => {
   }, []);
 
   return (
-    <Container className="w-full py-16 md:py-24 bg-gradient-to-br from-neutral-600 via-[#46464c] to-neutral-800 text-neutral-100 overflow-hidden">
-      <div className="max-w-7xl mx-auto sm:px-4">
-        <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
-          {/* Images Section - Left side */}
-          <motion.div
-            className="md:col-span-7 order-2 md:order-1 h-full"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            style={{
-              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-              height: windowWidth >= 768 ? `${contentHeight}px` : "auto",
-            }}
-          >
-            {/* Desktop layout (two images with one bleeding upward) */}
-            <div
-              className="hidden md:flex gap-6 h-full"
-              style={{
-                transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-                height: "100%",
-              }}
-            >
-              <motion.div
-                variants={fadeInScale}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="w-7/12 relative h-full -mt-[10%] z-10"
-                style={{
-                  transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-                  transform: `translateX(${Math.min((1024 - windowWidth) * 0.03, 15)}px)`,
-                }}
-              >
-                <div className="relative h-full w-full overflow-hidden">
-                  <Image
-                    src="/conference/theater-03.jpg"
-                    alt="Sala konferencyjna"
-                    fill
-                    priority
-                    className="object-cover"
-                    sizes="(max-width: 1200px) 40vw, 35vw"
-                    quality={100}
-                  />
-                </div>
-              </motion.div>
-
-              <motion.div
-                variants={fadeInScale}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="w-5/12 relative h-[85%] self-end"
-                style={{
-                  transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-                  transform: `translateX(${Math.max((windowWidth - 1024) * 0.02, -10)}px) translateY(10%)`,
-                }}
-              >
-                <div className="relative h-full w-full overflow-hidden ">
-                  <Image
-                    src="/conference/cozy-01.jpg"
-                    alt="Kameralna sala konferencyjna"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1200px) 30vw, 25vw"
-                  />
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Mobile layout (two images) */}
-            <div className="flex md:hidden flex-col gap-4">
-              {/* Main image */}
-              <motion.div
-                variants={fadeInScale}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="w-full aspect-[16/9] relative"
-              >
-                <div className="relative h-full w-full overflow-hidden ">
-                  <Image
-                    src="/conference/theater-01.jpg"
-                    alt="Sala konferencyjna"
-                    fill
-                    priority
-                    className="object-cover"
-                    sizes="100vw"
-                  />
-                </div>
-              </motion.div>
-
-              {/* Secondary image */}
-              <motion.div
-                variants={fadeInScale}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="w-full aspect-[16/9] relative"
-              >
-                <div className="relative h-full w-full overflow-hidden">
-                  <Image
-                    src="/conference/cozy-01.jpg"
-                    alt="Kameralna sala konferencyjna"
-                    fill
-                    className="object-cover"
-                    sizes="100vw"
-                  />
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Content Section - Right side */}
-          <motion.div
-            ref={contentRef}
-            className="md:col-span-5 flex flex-col justify-start order-1 md:order-2"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
-            <motion.h1
-              variants={fadeInUp}
-              transition={{ delay: 0.2 }}
-              className="text-4xl md:text-5xl font-semibold uppercase tracking-wider text-neutral-50"
-            >
-              Spotkania firmowe & Integracje
-            </motion.h1>
-
-            <motion.p
-              variants={fadeInUp}
-              transition={{ delay: 0.3 }}
-              className="text-base md:text-lg leading-relaxed text-white mt-6 md:mt-8"
-            >
-              Hotel Avangarda oferuje nowoczesne sale konferencyjne idealne na
-              spotkania biznesowe, szkolenia i eventy firmowe. Zapewniamy pełne
-              zaplecze techniczne, w tym projektory, nagłośnienie i szybki
-              internet.
-            </motion.p>
-
-            <motion.p
-              variants={fadeInUp}
-              transition={{ delay: 0.35 }}
-              className="text-base md:text-lg leading-relaxed text-white mt-4"
-            >
-              Po intensywnym dniu pracy zapraszamy do naszej strefy SPA, gdzie
-              Goście mogą zrelaksować się w saunie, jacuzzi lub podczas
-              profesjonalnych masaży.
-            </motion.p>
-
-            <motion.p
-              variants={fadeInUp}
-              transition={{ delay: 0.4 }}
-              className="text-base md:text-lg leading-relaxed text-white mt-4"
-            >
-              Organizujemy również wieczory integracyjne i programy team
-              buildingowe – które sprzyjają budowaniu relacji i wspólnej
-              motywacji zespołu.
-            </motion.p>
-
+    <Container className="relative w-full py-20 md:py-32 overflow-hidden">
+      {/* Background Image */}
+      <BackgroundLogoBottomDark />
+      <section className="relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Content Section */}
             <motion.div
-              variants={fadeInUp}
-              transition={{ delay: 0.45 }}
-              className="pt-6 md:pt-8"
+              ref={contentRef}
+              className="order-2 lg:order-1 space-y-8"
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
             >
-              <Link href={businessUrl}>
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="w-fit transition-all hover:scale-105 active:scale-95"
+              <motion.h2
+                variants={fadeInUp}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="!text-white text-4xl font-alata md:text-5xl font-semibold uppercase tracking-wider mb-6"
+              >
+                Spotkania firmowe & Integracje
+              </motion.h2>
+
+              <div className="space-y-6">
+                <motion.p
+                  variants={fadeInUp}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                  className="text-base md:text-lg max-w-2xl leading-relaxed text-white"
                 >
-                  Dostępna oferta
-                </Button>
-              </Link>
+                  Hotel Avangarda oferuje nowoczesne sale konferencyjne idealne
+                  na spotkania biznesowe, szkolenia i eventy firmowe. Zapewniamy
+                  pełne zaplecze techniczne, w tym projektory, nagłośnienie i
+                  szybki internet.
+                </motion.p>
+
+                <motion.p
+                  variants={fadeInUp}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                  className="text-base md:text-lg max-w-2xl leading-relaxed text-white"
+                >
+                  Po intensywnym dniu pracy zapraszamy do naszej strefy SPA,
+                  gdzie Goście mogą zrelaksować się w saunie, jacuzzi lub
+                  podczas profesjonalnych masaży.
+                </motion.p>
+
+                <motion.p
+                  variants={fadeInUp}
+                  transition={{ delay: 0.5, duration: 0.6 }}
+                  className="text-base md:text-lg max-w-2xl leading-relaxed text-white"
+                >
+                  Organizujemy również wieczory integracyjne i programy team
+                  buildingowe – które sprzyjają budowaniu relacji i wspólnej
+                  motywacji zespołu.
+                </motion.p>
+              </div>
+
+              <motion.div
+                variants={fadeInUp}
+                transition={{ delay: 0.6, duration: 0.6 }}
+                className="pt-4"
+              >
+                <Link href={businessUrl}>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="w-fit transition-all hover:scale-105 active:scale-95"
+                  >
+                    Dostępna oferta
+                  </Button>
+                </Link>
+              </motion.div>
             </motion.div>
-          </motion.div>
+
+            {/* Images Grid with More Space Between Images */}
+            <motion.div
+              className="order-1 lg:order-2 relative"
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+            >
+              {/* Desktop and Tablet Layout */}
+              <div className="hidden sm:block relative h-[500px] md:h-[600px] lg:h-[650px]">
+                {/* Large Main Image - Positioned Higher */}
+                <motion.div
+                  variants={fadeInRight}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="absolute top-0 right-0 w-4/5 h-[45%] z-10"
+                >
+                  <div className="relative h-full w-full overflow-hidden shadow-2xl">
+                    <Image
+                      src="/conference/theater-03.jpg"
+                      alt="Sala konferencyjna"
+                      fill
+                      priority
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                      sizes="(max-width: 768px) 80vw, (max-width: 1200px) 50vw, 40vw"
+                      quality={100}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                </motion.div>
+
+                {/* Secondary Image - Positioned Lower with More Space */}
+                <motion.div
+                  variants={fadeInLeft}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="absolute bottom-0 left-0 w-3/5 h-[45%] z-20"
+                >
+                  <div className="relative h-full w-full overflow-hidden shadow-2xl">
+                    <Image
+                      src="/conference/cozy-01.jpg"
+                      alt="Kameralna sala konferencyjna"
+                      fill
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                      sizes="(max-width: 768px) 60vw, (max-width: 1200px) 35vw, 30vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                </motion.div>
+
+                {/* Decorative Elements */}
+                <motion.div
+                  variants={fadeInScale}
+                  transition={{ duration: 1, delay: 0.6 }}
+                  className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-[#E31C79]/15 to-[#E31C79]/8 rounded-full blur-lg"
+                ></motion.div>
+                <motion.div
+                  variants={fadeInScale}
+                  transition={{ duration: 1, delay: 0.8 }}
+                  className="absolute bottom-20 right-10 w-16 h-16 bg-gradient-to-br from-[#E31C79]/12 to-transparent rounded-full blur-lg"
+                ></motion.div>
+              </div>
+
+              {/* Mobile Layout with More Space Between Images */}
+              <div className="sm:hidden space-y-8">
+                <motion.div
+                  variants={fadeInScale}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="w-full aspect-[4/3] relative"
+                >
+                  <div className="relative h-full w-full overflow-hidden shadow-xl">
+                    <Image
+                      src="/conference/theater-03.jpg"
+                      alt="Sala konferencyjna"
+                      fill
+                      priority
+                      className="object-cover"
+                      sizes="100vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  variants={fadeInScale}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="w-full aspect-[4/3] relative"
+                >
+                  <div className="relative h-full w-full overflow-hidden shadow-xl">
+                    <Image
+                      src="/conference/cozy-01.jpg"
+                      alt="Kameralna sala konferencyjna"
+                      fill
+                      className="object-cover"
+                      sizes="100vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
         </div>
-      </div>
+      </section>
     </Container>
   );
 };

@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button"; // Assuming shadcn/ui button
 import Link from "next/link";
 import { cn } from "@/lib/utils"; // For conditional class names
+import BackgroundLogoBottomDark from "../background-logo-bottom-dark";
+import { Container } from "../container";
 
 const attractions = ["Basen", "Jacuzzi", "Masaże", "Grota Solna"];
 
@@ -18,34 +20,19 @@ interface SpaProps {
   className?: string;
 }
 
-// Dummy Container component for demonstration purposes
-const Container = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <section className={cn("w-full", className)}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">{children}</div>
-    </section>
-  );
-};
-
 const Spa = ({ lang = "pl", dict, className }: SpaProps) => {
   const spaUrl = lang === "en" ? "/en/spa" : "/pl/spa";
 
   return (
     <Container
-      className={cn(
-        "mt-10 py-10 md:py-14 bg-gradient-to-br from-neutral-600 via-[#46464c] to-neutral-900 text-white",
-        className
-      )}
+      className={cn("relative mt-10 py-10 md:py-14 text-white", className)}
     >
-      <div className="max-w-7xl mx-auto">
-        {" "}
-        {/* Removed sm:px-4 as Container might handle it */}
+      {/* Background Image - Add z-index to push it behind content */}
+      <div className="absolute inset-0 -z-10">
+        <BackgroundLogoBottomDark position="left" />
+      </div>
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* The z-10 ensures content is above background */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Images Container - Left Side */}
           <motion.div
@@ -76,7 +63,7 @@ const Spa = ({ lang = "pl", dict, className }: SpaProps) => {
               // Assuming font-alata is defined in your tailwind.config.js or globals.css
               className="text-4xl font-alata md:text-5xl font-semibold uppercase tracking-wider text-neutral-50"
             >
-              SPA & Wellness
+              Wellness & SPA
             </motion.h2>
 
             <motion.p

@@ -36,7 +36,7 @@ export default function BusinessEntertainment({
           >
             <div className="relative aspect-square w-full  overflow-hidden">
               <Image
-                src="/klub/klub-01.jpg"
+                src="/klub/klub-01.JPG"
                 alt="Klub Coola"
                 fill
                 className="object-cover"
@@ -200,7 +200,7 @@ export default function BusinessEntertainment({
                 <div className="space-y-6">
                   <div className="relative aspect-video w-full overflow-hidden ">
                     <Image
-                      src="/klub/klub-01.jpg"
+                      src="/klub/klub-01.JPG"
                       alt="Klub Coola"
                       fill
                       className="object-cover"
@@ -352,7 +352,7 @@ export default function BusinessEntertainment({
                   {/* Full-width image for outdoor tab */}
                   <div className="relative aspect-[16/9] w-full overflow-hidden">
                     <Image
-                      src="/outdoor/out-02.jpg"
+                      src="/outdoor/out-02.JPG"
                       alt="Aktywności plenerowe"
                       fill
                       className="object-cover"

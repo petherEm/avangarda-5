@@ -41,7 +41,7 @@ const GastroIntro = ({ dict, lang }: GastroIntroProps) => {
       id: "klub-coola",
       name: "Klub Coola",
       description: "Centrum rozrywki z restauracją, kręglami i biliard.",
-      image: "/klub/klub-01.jpg",
+      image: "/klub/klub-01.JPG",
       icon: Music,
       features: [
         "Kręgle i bilard",

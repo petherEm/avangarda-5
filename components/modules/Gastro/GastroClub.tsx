@@ -129,7 +129,7 @@ export default function RestaurantFort() {
             className="relative aspect-[4/3] w-full overflow-hidden "
           >
             <Image
-              src="/klub/klub-01.jpg"
+              src="/klub/klub-01.JPG"
               alt="Klub Coola - wnętrze"
               fill
               className="object-cover"
@@ -159,7 +159,7 @@ export default function RestaurantFort() {
             {/* Row 1 */}
             <div className="relative aspect-[16/10] overflow-hidden ">
               <Image
-                src="/klub/klub-02.jpg"
+                src="/klub/klub-02.JPG"
                 alt="Wnętrze klubu"
                 fill
                 className="object-cover"
@@ -168,7 +168,7 @@ export default function RestaurantFort() {
 
             <div className="relative aspect-[16/10] overflow-hidden ">
               <Image
-                src="/klub/klub-03.jpg"
+                src="/klub/klub-03.JPG"
                 alt="Strefa gier"
                 fill
                 className="object-cover"
@@ -178,7 +178,7 @@ export default function RestaurantFort() {
             {/* Row 2 */}
             <div className="relative aspect-[16/10] overflow-hidden ">
               <Image
-                src="/klub/klub-04.jpg"
+                src="/klub/klub-04.JPG"
                 alt="Bar i restauracja"
                 fill
                 className="object-cover"
@@ -187,7 +187,7 @@ export default function RestaurantFort() {
 
             <div className="relative aspect-[16/10] overflow-hidden ">
               <Image
-                src="/klub/klub-01.jpg"
+                src="/klub/klub-01.JPG"
                 alt="Kręgielnia"
                 fill
                 className="object-cover"

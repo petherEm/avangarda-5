@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Facebook, Instagram, Menu, Phone } from "lucide-react";
+import { Facebook, Gift, GiftIcon, Instagram, Menu, Phone } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { Container } from "@/components/container";
@@ -16,6 +16,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { LanguageSwitcher } from "@/components/language-swticher";
+
+// Add this to your tailwind.config.js if you haven't already
+// screens: { 'xs': '480px', ...defaultTheme.screens }
 
 interface MenuItemType {
   nameKey: string;
@@ -123,6 +126,15 @@ export function Navbar({ lang, dict }: NavbarProps) {
             {dict.nav.phone}
           </Button>
           <Button
+            variant="ghost"
+            size="sm"
+            className="w-full font-alata justify-start gap-2 text-white"
+            onClick={() => setIsSheetOpen(false)}
+          >
+            <Gift className="h-4 w-4 text-white" />
+            Kup Voucher
+          </Button>
+          <Button
             className="bg-avangarda text-white hover:bg-avangarda/90"
             onClick={() => setIsSheetOpen(false)}
           >
@@ -130,6 +142,24 @@ export function Navbar({ lang, dict }: NavbarProps) {
           </Button>
           <div className="flex justify-center">
             <LanguageSwitcher />
+          </div>
+          <div className="flex justify-center gap-4 mt-2">
+            <Link
+              href="https://facebook.com"
+              className="text-white hover:text-avangarda"
+              aria-label="Visit our Facebook page"
+              onClick={() => setIsSheetOpen(false)}
+            >
+              <Facebook className="h-5 w-5" />
+            </Link>
+            <Link
+              href="https://facebook.com"
+              className="text-white hover:text-avangarda"
+              aria-label="Visit our Instagram page"
+              onClick={() => setIsSheetOpen(false)}
+            >
+              <Instagram className="h-5 w-5" />
+            </Link>
           </div>
         </div>
       </div>
@@ -170,7 +200,7 @@ export function Navbar({ lang, dict }: NavbarProps) {
 
         {/* Center navigation for desktop when scrolled */}
         {isScrolled && (
-          <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-6 flex-1">
+          <nav className="hidden xl:flex items-center justify-center gap-3 xl:gap-6 flex-1">
             {MenuListing.map((item) => (
               <Link
                 key={item.nameKey}
@@ -191,32 +221,21 @@ export function Navbar({ lang, dict }: NavbarProps) {
         <div
           className={`flex items-center ${isScrolled ? "gap-2 sm:gap-4" : "gap-4"}`}
         >
-          {!isScrolled && (
-            <>
-              <Link
-                href="https://facebook.com"
-                className="text-white hover:text-avangarda"
-                aria-label="Visit our Facebook page"
-              >
-                <Facebook className="h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
-              <Link
-                href="https://facebook.com"
-                className="text-white hover:text-avangarda"
-                aria-label="Visit our Facebook page"
-              >
-                <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
-            </>
-          )}
-          {/* 
-          <a
-            href={`tel:${dict.nav.phone}`}
-            className="hidden font-alata items-center gap-1 whitespace-nowrap text-xs text-white hover:text-avangarda sm:flex sm:text-sm"
+          {/* Social media icons - visible in both states */}
+          <Link
+            href="https://facebook.com"
+            className="text-white hover:text-avangarda"
+            aria-label="Visit our Facebook page"
           >
-            <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
-            {dict.nav.phone}
-          </a> */}
+            <Facebook className="h-4 w-4 sm:h-5 sm:w-5" />
+          </Link>
+          <Link
+            href="https://facebook.com"
+            className="text-white hover:text-avangarda"
+            aria-label="Visit our Instagram page"
+          >
+            <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
+          </Link>
 
           <LanguageSwitcher />
 
@@ -224,9 +243,19 @@ export function Navbar({ lang, dict }: NavbarProps) {
             size="sm"
             className="bg-avangarda font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm"
           >
-            {/* {dict.nav.book} */}
             <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
-            {dict.nav.phone}
+            {!isScrolled && (
+              <span className="ml-1 sm:ml-2">{dict.nav.phone}</span>
+            )}
+          </Button>
+
+          {/* Kup Voucher button - only visible on desktop */}
+          <Button
+            size="sm"
+            className="bg-avangarda font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm flex"
+          >
+            <GiftIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+            Kup Voucher
           </Button>
 
           {/* Mobile menu button */}
@@ -235,13 +264,16 @@ export function Navbar({ lang, dict }: NavbarProps) {
               <Button
                 variant="link"
                 size="icon"
-                className="lg:hidden text-white"
+                className="xl:hidden text-white"
+                asChild
               >
                 <Menu className="h-8 w-8" />
-                <span className="sr-only">{dict.nav.menu}</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] bg-[#404042]">
+            <SheetContent
+              side="right"
+              className="w-[300px] bg-[#404042] border-l border-avangarda/20 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right data-[state=open]:duration-300 data-[state=closed]:duration-200"
+            >
               <MobileMenuContent />
             </SheetContent>
           </Sheet>
@@ -268,7 +300,7 @@ export function Navbar({ lang, dict }: NavbarProps) {
             </Link>
 
             {/* Desktop navigation */}
-            <nav className="hidden w-full lg:flex absolute -bottom-10 left-0 flex-row justify-center gap-3 xl:gap-6">
+            <nav className="hidden w-full xl:flex absolute -bottom-10 left-0 flex-row justify-center gap-2 xl:gap-6 overflow-x-auto">
               {MenuListing.map((item) => (
                 <Link
                   key={item.nameKey}

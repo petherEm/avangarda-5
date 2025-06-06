@@ -1,9 +1,8 @@
 import AnimateOnScroll from "@/components/animate-on-scroll";
-import HeroImage from "@/components/hero-image";
+import HotelHero from "@/components/modules/Rooms/HotelHero";
 import HotelIntro from "@/components/modules/Rooms/HotelIntro";
 import RoomsIntro from "@/components/modules/Rooms/RoomsIntro";
 import Testimonials from "@/components/modules/Rooms/Testimonials";
-import WorkInProgress from "@/components/work-in-progress";
 import { getDictionary } from "@/lib/dictionary";
 
 export default async function HotelMain({
@@ -18,7 +17,8 @@ export default async function HotelMain({
 
   return (
     <>
-      <HeroImage image="/hotel-hero-2.jpg" title={title} />
+      {/* <HeroImage image="/hotel-hero-2.jpg" title={title} /> */}
+      <HotelHero />
 
       <AnimateOnScroll>
         <HotelIntro dict={dict} lang={lang} />

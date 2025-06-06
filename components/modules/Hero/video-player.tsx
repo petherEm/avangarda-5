@@ -72,7 +72,7 @@ export default function VideoPlayer() {
         preload="auto"
       >
         <source
-          src="https://moviestorage.fra1.cdn.digitaloceanspaces.com/ava20s3.mp4"
+          src="https://moviestorage.fra1.cdn.digitaloceanspaces.com/intro_reduced.mp4"
           type="video/mp4"
         />
       </video>
