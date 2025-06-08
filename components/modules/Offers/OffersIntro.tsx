@@ -101,18 +101,20 @@ const OffersIntro = ({ dict, lang, offers }: OffersIntroProps) => {
         </div>
 
         {/* Offers Grid Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <h2 className="text-3xl font-semibold mb-12 text-center">
-            {t("offers.browseTitle")}
-          </h2>
+        {offers && offers.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="text-3xl font-semibold mb-12 text-center">
+              {t("offers.browseTitle")}
+            </h2>
 
-          <OfferGrid offers={offers} lang={lang} />
-        </motion.div>
+            <OfferGrid offers={offers} lang={lang} />
+          </motion.div>
+        )}
       </div>
     </Container>
   );

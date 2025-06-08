@@ -137,7 +137,7 @@ export function Navbar({ lang, dict }: NavbarProps) {
             onClick={() => setIsSheetOpen(false)}
           >
             <Gift className="h-4 w-4 text-white" />
-            Kup Voucher
+            <Link href={getLocalizedHref("/pakiety")}>Kup Voucher</Link>
           </Button>
 
           <Button
@@ -296,15 +296,17 @@ export function Navbar({ lang, dict }: NavbarProps) {
                 </Button>
 
                 {/* Kup Voucher button - KEEP COMPACT */}
-                <Button
-                  size="sm"
-                  className="bg-avangarda font-alata px-2 py-1 text-xs text-white hover:bg-avangarda/90 xl:px-4 xl:text-sm flex"
-                >
-                  <GiftIcon className="h-3 w-3 xl:h-4 xl:w-4 mr-1" />
-                  <span className="hidden sm:inline xl:inline">
-                    Kup Voucher
-                  </span>
-                </Button>
+                <Link href={getLocalizedHref("/pakiety")}>
+                  <Button
+                    size="sm"
+                    className="bg-avangarda font-alata px-2 py-1 text-xs text-white hover:bg-avangarda/90 xl:px-4 xl:text-sm flex"
+                  >
+                    <GiftIcon className="h-3 w-3 xl:h-4 xl:w-4 mr-1" />
+                    <span className="hidden sm:inline xl:inline">
+                      Kup Voucher
+                    </span>
+                  </Button>
+                </Link>
 
                 {/* Mobile menu button */}
                 <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -359,13 +361,15 @@ export function Navbar({ lang, dict }: NavbarProps) {
               <span className="ml-1 sm:ml-2">{dict.nav.phone}</span>
             </Button>
 
-            <Button
-              size="sm"
-              className="bg-avangarda font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm flex"
-            >
-              <GiftIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              Kup Voucher
-            </Button>
+            <Link href={getLocalizedHref("/pakiety")}>
+              <Button
+                size="sm"
+                className="bg-avangarda font-alata px-2 text-xs text-white hover:bg-avangarda/90 sm:px-4 sm:text-sm flex"
+              >
+                <GiftIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                Kup Voucher
+              </Button>
+            </Link>
 
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>

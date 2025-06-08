@@ -13,59 +13,30 @@
  */
 
 // Source: schema.json
-export type SanityImagePaletteSwatch = {
-  _type: "sanity.imagePaletteSwatch";
-  background?: string;
-  foreground?: string;
-  population?: number;
-  title?: string;
-};
-
-export type SanityImagePalette = {
-  _type: "sanity.imagePalette";
-  darkMuted?: SanityImagePaletteSwatch;
-  lightVibrant?: SanityImagePaletteSwatch;
-  darkVibrant?: SanityImagePaletteSwatch;
-  vibrant?: SanityImagePaletteSwatch;
-  dominant?: SanityImagePaletteSwatch;
-  lightMuted?: SanityImagePaletteSwatch;
-  muted?: SanityImagePaletteSwatch;
-};
-
-export type SanityImageDimensions = {
-  _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
-};
-
-export type SanityFileAsset = {
+export type Voucher = {
   _id: string;
-  _type: "sanity.fileAsset";
+  _type: "voucher";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  source?: SanityAssetSourceData;
-};
-
-export type Geopoint = {
-  _type: "geopoint";
-  lat?: number;
-  lng?: number;
-  alt?: number;
+  plname?: string;
+  enname?: string;
+  slug?: Slug;
+  voucherImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  voucherValue?: number;
+  pldescription?: string;
+  endescription?: string;
 };
 
 export type OfferScope = {
@@ -196,12 +167,6 @@ export type Offers = {
   stock?: number;
 };
 
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -234,12 +199,30 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+export type SanityImagePaletteSwatch = {
+  _type: "sanity.imagePaletteSwatch";
+  background?: string;
+  foreground?: string;
+  population?: number;
+  title?: string;
+};
+
+export type SanityImagePalette = {
+  _type: "sanity.imagePalette";
+  darkMuted?: SanityImagePaletteSwatch;
+  lightVibrant?: SanityImagePaletteSwatch;
+  darkVibrant?: SanityImagePaletteSwatch;
+  vibrant?: SanityImagePaletteSwatch;
+  dominant?: SanityImagePaletteSwatch;
+  lightMuted?: SanityImagePaletteSwatch;
+  muted?: SanityImagePaletteSwatch;
+};
+
+export type SanityImageDimensions = {
+  _type: "sanity.imageDimensions";
+  height?: number;
+  width?: number;
+  aspectRatio?: number;
 };
 
 export type SanityImageHotspot = {
@@ -248,6 +231,36 @@ export type SanityImageHotspot = {
   y?: number;
   height?: number;
   width?: number;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityFileAsset = {
+  _id: string;
+  _type: "sanity.fileAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  source?: SanityAssetSourceData;
 };
 
 export type SanityImageAsset = {
@@ -273,13 +286,6 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData;
 };
 
-export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
-  name?: string;
-  id?: string;
-  url?: string;
-};
-
 export type SanityImageMetadata = {
   _type: "sanity.imageMetadata";
   location?: Geopoint;
@@ -291,11 +297,31 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | OfferScope | Category | Offers | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type Geopoint = {
+  _type: "geopoint";
+  lat?: number;
+  lng?: number;
+  alt?: number;
+};
+
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
+export type SanityAssetSourceData = {
+  _type: "sanity.assetSourceData";
+  name?: string;
+  id?: string;
+  url?: string;
+};
+
+export type AllSanitySchemaTypes = Voucher | OfferScope | Category | Offers | BlockContent | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/offers/getOfferBySlug.ts
 // Variable: OFFER_BY_ID_QUERY
-// Query: *[_type == "offers" && slug.current == $slug] {            _id,            plname,            enname,            slug,            image,            price,            currency,            validUntil,            people,            minNights,            pldescription,            endescription,            "offerListing": offerListing[]-> {                _id,                name,                icon            }        } | order(plname asc) [0]
+// Query: *[_type == "offers" && slug.current == $slug] {            _id,            plname,            enname,            slug,            image,            price,            currency,            validUntil,            people,            minNights,            pldescription,            endescription,            "offerListing": offerListing[]-> {                _id,                plname,                enname,                description            }        } | order(plname asc) [0]
 export type OFFER_BY_ID_QUERYResult = {
   _id: string;
   plname: string | null;
@@ -382,24 +408,21 @@ export type OFFER_BY_ID_QUERYResult = {
   }> | null;
   offerListing: Array<{
     _id: string;
-    name: null;
-    icon: null;
+    plname: string | null;
+    enname: string | null;
+    description: string | null;
   }> | null;
 } | null;
 
 // Source: ./sanity/lib/offers/getOffers.ts
 // Variable: ALL_OFFERS_QUERY
-// Query: *[_type == "offers"] | order(plname asc)
+// Query: *[_type == "offers"] {      _id,      plname,      enname,      slug,      image,      price,      validUntil,      people,      minNights,      pldescription,      endescription,      "categories": categories[] {        _ref,        _key,        "title": @->title,        "entitle": @->entitle,         "pltitle": @->pltitle      }    } | order(validFrom desc)
 export type ALL_OFFERS_QUERYResult = Array<{
   _id: string;
-  _type: "offers";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  plname?: string;
-  enname?: string;
-  slug?: Slug;
-  image?: {
+  plname: string | null;
+  enname: string | null;
+  slug: Slug | null;
+  image: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -410,18 +433,12 @@ export type ALL_OFFERS_QUERYResult = Array<{
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
-  };
-  price?: number;
-  people?: number;
-  minNights?: number;
-  offerListing?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "offerScope";
-  }>;
-  pldescription?: Array<{
+  } | null;
+  price: number | null;
+  validUntil: string | null;
+  people: number | null;
+  minNights: number | null;
+  pldescription: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -451,8 +468,8 @@ export type ALL_OFFERS_QUERYResult = Array<{
     alt?: string;
     _type: "image";
     _key: string;
-  }>;
-  endescription?: Array<{
+  }> | null;
+  endescription: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -482,25 +499,73 @@ export type ALL_OFFERS_QUERYResult = Array<{
     alt?: string;
     _type: "image";
     _key: string;
-  }>;
-  validFrom?: string;
-  validUntil?: string;
-  isActive?: boolean;
-  categories?: Array<{
+  }> | null;
+  categories: Array<{
     _ref: string;
-    _type: "reference";
-    _weak?: boolean;
     _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
-  stock?: number;
+    title: string | null;
+    entitle: null;
+    pltitle: null;
+  }> | null;
+}>;
+
+// Source: ./sanity/lib/offers/getVoucherBySlug.ts
+// Variable: VOUCHER_BY_SLUG_QUERY
+// Query: *[_type == "voucher" && slug.current == $slug][0] {      _id,      plname,      enname,      slug,      voucherImage,      voucherValue,      pldescription,      endescription    }
+export type VOUCHER_BY_SLUG_QUERYResult = {
+  _id: string;
+  plname: string | null;
+  enname: string | null;
+  slug: Slug | null;
+  voucherImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  voucherValue: number | null;
+  pldescription: string | null;
+  endescription: string | null;
+} | null;
+
+// Source: ./sanity/lib/offers/getVouchers.ts
+// Variable: ALL_VOUCHERS_QUERY
+// Query: *[_type == "voucher"] {      _id,      plname,      enname,      slug,      voucherImage,      voucherValue,      pldescription,      endescription    } | order(_createdAt desc)
+export type ALL_VOUCHERS_QUERYResult = Array<{
+  _id: string;
+  plname: string | null;
+  enname: string | null;
+  slug: Slug | null;
+  voucherImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  voucherValue: number | null;
+  pldescription: string | null;
+  endescription: string | null;
 }>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n        *[_type == \"offers\" && slug.current == $slug] {\n            _id,\n            plname,\n            enname,\n            slug,\n            image,\n            price,\n            currency,\n            validUntil,\n            people,\n            minNights,\n            pldescription,\n            endescription,\n            \"offerListing\": offerListing[]-> {\n                _id,\n                name,\n                icon\n            }\n        } | order(plname asc) [0]": OFFER_BY_ID_QUERYResult;
-    "*[_type == \"offers\"] | order(plname asc)": ALL_OFFERS_QUERYResult;
+    "\n        *[_type == \"offers\" && slug.current == $slug] {\n            _id,\n            plname,\n            enname,\n            slug,\n            image,\n            price,\n            currency,\n            validUntil,\n            people,\n            minNights,\n            pldescription,\n            endescription,\n            \"offerListing\": offerListing[]-> {\n                _id,\n                plname,\n                enname,\n                description\n            }\n        } | order(plname asc) [0]": OFFER_BY_ID_QUERYResult;
+    "*[_type == \"offers\"] {\n      _id,\n      plname,\n      enname,\n      slug,\n      image,\n      price,\n      validUntil,\n      people,\n      minNights,\n      pldescription,\n      endescription,\n      \"categories\": categories[] {\n        _ref,\n        _key,\n        \"title\": @->title,\n        \"entitle\": @->entitle, \n        \"pltitle\": @->pltitle\n      }\n    } | order(validFrom desc)": ALL_OFFERS_QUERYResult;
+    "*[_type == \"voucher\" && slug.current == $slug][0] {\n      _id,\n      plname,\n      enname,\n      slug,\n      voucherImage,\n      voucherValue,\n      pldescription,\n      endescription\n    }": VOUCHER_BY_SLUG_QUERYResult;
+    "*[_type == \"voucher\"] {\n      _id,\n      plname,\n      enname,\n      slug,\n      voucherImage,\n      voucherValue,\n      pldescription,\n      endescription\n    } | order(_createdAt desc)": ALL_VOUCHERS_QUERYResult;
   }
 }

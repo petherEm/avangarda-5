@@ -178,103 +178,108 @@ const OffersPageId = async ({ params }: { params: Params }) => {
 
   return (
     <main className="bg-gray-50 min-h-screen font-raleway">
-      {/* Hero Section - Updated with solid background and new colors */}
-      <section className="relative min-h-screen overflow-hidden">
+      {/* Hero Section with space for navbar */}
+      <section className="relative md:min-h-screen bg-[#404042] text-white">
         {/* Solid background color for the content area */}
         <div className="absolute top-0 left-0 bottom-0 md:w-1/2 w-full bg-[#404042] z-0"></div>
 
-        {/* Decorative elements - updated color */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-[#E31C79] z-10"></div>
+        {/* Top gradient for menu visibility */}
+        <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/60 to-transparent z-20"></div>
 
-        <div className="relative z-10 min-h-screen flex items-center">
-          <div className="container mx-auto px-4 md:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              {/* Left content - positioned lower */}
-              <div className="mt-28 mb-10 md:col-span-5 text-white md:pt-48 py-8 pt-24 md:py-0">
-                {/* Special offer badge - updated color */}
-                <Badge className="mb-4 bg-[#E31C79] hover:bg-[#E31C79]/90 border-0 text-white px-3 py-1">
-                  Oferta Specjalna
-                </Badge>
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-avangarda z-10"></div>
 
-                <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-                  {localizedContent.name}
-                </h1>
+        {/* Mobile image - shown first on mobile, completely full width */}
+        <div className="md:hidden">
+          <div className="relative aspect-[16/10] w-full overflow-hidden">
+            <Image
+              src={
+                offer?.image
+                  ? imageUrl(offer.image)
+                      .width(800)
+                      .height(500)
+                      .quality(90)
+                      .url()
+                  : "/placeholder.svg?height=500&width=800&query=luxury+hotel+room"
+              }
+              alt={localizedContent.name}
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+            {/* Enhanced gradient overlay for better visibility at top and bottom */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/70"></div>
+          </div>
+        </div>
 
-                <div className="flex items-center mb-6">
-                  <Tag className="mr-2 h-5 w-5 text-avangarda" />
-                  <span className="text-2xl md:text-3xl font-bold text-white/95">
-                    {formattedPrice}
-                  </span>
-                  <span className="text-sm text-white/70 ml-2">/ pakiet</span>
-                </div>
-
-                {/* Key package details - updated icon colors */}
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="flex items-center">
-                    <Calendar className="mr-2 h-5 w-5 text-avangarda" />
-                    <span className="text-white/90">
-                      {getDuration(offer?.minNights)}
-                    </span>
+        <div className="relative z-10 md:min-h-screen flex flex-col md:block">
+          <div className="container mx-auto px-4 md:px-6 lg:px-8 h-full">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:h-screen">
+              {/* Left content - positioned at bottom on desktop, normal flow on mobile */}
+              <div className="md:col-span-5 flex flex-col md:justify-end pb-8 md:pb-16 pt-6 md:pt-0">
+                <div className="space-y-4 md:space-y-6">
+                  {/* Header */}
+                  <div>
+                    <Badge className="mb-3 bg-avangarda hover:bg-avangarda/90 border-0 text-white px-3 py-1">
+                      {lang === "pl" ? "Oferta Specjalna" : "Special Offer"}
+                    </Badge>
+                    <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold text-white mb-4 leading-tight">
+                      {localizedContent.name}
+                    </h1>
+                    <div className="flex items-center mb-4">
+                      <Tag className="mr-2 h-6 w-6 text-avangarda" />
+                      <span className="text-2xl md:text-3xl font-bold text-white/95">
+                        {formattedPrice}
+                      </span>
+                      <span className="text-sm text-white/70 ml-2">
+                        / pakiet
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    <Users className="mr-2 h-5 w-5 text-avangarda" />
-                    <span className="text-white/90">
-                      Dla {offer?.people || 2} osób
-                    </span>
+
+                  {/* Key package details */}
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                    <div className="flex items-center space-x-2 text-sm">
+                      <Calendar className="h-5 w-5 text-avangarda flex-shrink-0" />
+                      <span className="text-white/90">
+                        {getDuration(offer?.minNights)}
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-sm">
+                      <Users className="h-5 w-5 text-avangarda flex-shrink-0" />
+                      <span className="text-white/90">
+                        Dla {offer?.people || 2} osób
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-sm">
+                      <CalendarDays className="h-5 w-5 text-avangarda flex-shrink-0" />
+                      <span className="text-white/90">
+                        Ważne do: {formatValidUntil(offer?.validUntil)}
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-sm">
+                      <BadgeCheck className="h-5 w-5 text-avangarda flex-shrink-0" />
+                      <span className="text-white/90">
+                        {packageDetails.roomType}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    <CalendarDays className="mr-2 h-5 w-5 text-avangarda" />
-                    <span className="text-white/90">
-                      Ważne do: {formatValidUntil(offer?.validUntil)}
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <BadgeCheck className="mr-2 h-5 w-5 text-avangarda" />
-                    <span className="text-white/90">
-                      {packageDetails.roomType}
-                    </span>
-                  </div>
-                </div>
 
-                <p className="text-lg text-white/90 mb-8 line-clamp-3">
-                  {localizedContent.description}
-                </p>
+                  {/* Description */}
+                  <p className="text-white/90 text-lg leading-relaxed line-clamp-3">
+                    {localizedContent.description}
+                  </p>
 
-                <div className="flex flex-wrap gap-4">
-                  <Button
-                    size="lg"
-                    className="bg-[#E31C79] hover:bg-[#E31C79]/90 text-white border-0 shadow-lg shadow-[#E31C79]/20"
-                  >
-                    {dict?.common?.bookNow || "Book Now"}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-white text-white hover:bg-white/10"
-                  >
-                    {dict?.common?.contactUs || "Contact Us"}
-                  </Button>
-                </div>
-
-                {/* Mobile-only image below buttons */}
-                <div className="md:hidden mt-8">
-                  <div className="relative aspect-[16/10] w-full overflow-hidden">
-                    <Image
-                      src={
-                        offer?.image
-                          ? imageUrl(offer.image).url()
-                          : "/placeholder.svg?height=400&width=640&query=luxury+hotel+room"
-                      }
-                      alt={localizedContent.name}
-                      fill
-                      className="object-cover"
-                      sizes="100vw"
-                      priority
-                    />
-                    {/* Subtle overlay to maintain contrast if needed */}
-                    <div className="absolute inset-0 bg-black/20"></div>
+                  {/* Action Button - Removed Contact Us button */}
+                  <div className="pt-1 md:pt-2">
+                    <Button
+                      size="lg"
+                      className="bg-avangarda hover:bg-avangarda/90 text-white border-0 shadow-lg shadow-[#E31C79]/20"
+                    >
+                      {dict?.common?.bookNow || "Book Now"}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -288,15 +293,16 @@ const OffersPageId = async ({ params }: { params: Params }) => {
         {/* Full height, full width image positioned absolutely - hidden on mobile */}
         <div className="absolute top-0 right-0 bottom-0 md:w-1/2 w-full h-screen md:h-auto hidden md:block">
           {/* Gradient overlay for darkening the image from top to middle */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent z-10"></div>
-
-          {/* Left edge transition */}
-          <div className="absolute top-0 left-0 bottom-0 w-16 bg-gradient-to-r from-[#404042] to-transparent z-10 hidden md:block"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-transparent z-10"></div>
 
           <Image
             src={
               offer?.image
-                ? imageUrl(offer.image).url()
+                ? imageUrl(offer.image)
+                    .width(800)
+                    .height(1200)
+                    .quality(90)
+                    .url()
                 : "/placeholder.svg?height=1200&width=800&query=luxury+hotel+room"
             }
             alt={localizedContent.name}
@@ -380,7 +386,7 @@ const OffersPageId = async ({ params }: { params: Params }) => {
               </div>
             </div>
 
-            {/* Image Gallery */}
+            {/* Image Gallery - Removed scale effect */}
             <div className="bg-white shadow-md p-8 mb-8">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                 <span className="w-10 h-1 bg-[#E31C79] mr-4"></span>
@@ -391,13 +397,13 @@ const OffersPageId = async ({ params }: { params: Params }) => {
                 {packageDetails.gallery.map((image, index) => (
                   <div
                     key={index}
-                    className="relative aspect-[4/3]  overflow-hidden group"
+                    className="relative aspect-[4/3] overflow-hidden group"
                   >
                     <Image
                       src={image || "/placeholder.svg"}
                       alt={`Gallery image ${index + 1}`}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="object-cover"
                       sizes="(max-width: 768px) 50vw, 25vw"
                     />
                   </div>
@@ -420,46 +426,6 @@ const OffersPageId = async ({ params }: { params: Params }) => {
                   </li>
                 ))}
               </ul>
-            </div>
-
-            {/* Related Offers */}
-            <div className="bg-white shadow-md p-8 mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <span className="w-10 h-1 bg-[#E31C79] mr-4"></span>
-                Podobne oferty
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {packageDetails.relatedOffers.map((relatedOffer, index) => (
-                  <div
-                    key={index}
-                    className="group relative  overflow-hidden shadow-md"
-                  >
-                    <div className="relative aspect-[16/9]">
-                      <Image
-                        src={relatedOffer.image || "/placeholder.svg"}
-                        alt={relatedOffer.name}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h3 className="text-xl font-semibold text-white mb-2">
-                        {relatedOffer.name}
-                      </h3>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="bg-white/10 backdrop-blur-sm border-white/50 text-white hover:bg-white/20"
-                      >
-                        Zobacz szczegóły
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         ) : (
